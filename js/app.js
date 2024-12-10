@@ -359,6 +359,10 @@ function readOrient() {
             true,
         );
     }
+    else
+    {
+        throw new Error("no sensors here .-.");
+    }
     
     const handleOrientationEvent = (frontToBack, leftToRight, rotateDegrees) => {
         if(buzzParam) {
