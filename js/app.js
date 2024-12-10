@@ -40,6 +40,8 @@ async function setup() {
         }
         return;
     }
+
+
     
     // (Optional) Fetch the dependencies
     let dependencies = [];
@@ -63,6 +65,10 @@ async function setup() {
         }
         return;
     }
+
+    startParam = doomDevice.parametersById.get('start');
+    mixParam = doomDevice.parametersById.get('doomFuzz/Mix');
+    buzzParam = doomDevice.parametersById.get('doomFuzz/DoomFuzzDSP/Fuzz/Buzz');
 
     // (Optional) Load the samples
     if (dependencies.length)
@@ -247,6 +253,8 @@ function makeInportForm(device) {
     }
 }
 
+
+
 function attachOutports(device) {
     const outports = device.outports;
     if (outports.length < 1) {
@@ -335,5 +343,36 @@ function makeMIDIKeyboard(device) {
         mdiv.appendChild(key);
     });
 }
+
+function readOrient() {
+
+    if (window.DeviceOrientationEvent) {
+        window.addEventListener(
+            "deviceorientation",
+            (event) => {
+                const rotateDegrees = event.alpha; // alpha: rotation around z-axis
+                const leftToRight = event.gamma; // gamma: left to right
+                const frontToBack = event.beta; // beta: front back motion
+    
+                handleOrientationEvent(frontToBack, leftToRight, rotateDegrees);
+            },
+            true,
+        );
+    }
+    
+    const handleOrientationEvent = (frontToBack, leftToRight, rotateDegrees) => {
+        if(buzzParam) {
+            buzzParam.normalizedValue = frontToBack;
+    
+        }
+    
+        if (mixParam){
+            mixParam.normalizedValue = leftToRight;
+        }
+    };
+    
+
+}
+
 
 setup();
