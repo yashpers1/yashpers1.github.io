@@ -66,9 +66,9 @@ async function setup() {
         return;
     }
 
-    startParam = doomDevice.parametersById.get('start');
-    mixParam = doomDevice.parametersById.get('doomFuzz/Mix');
-    buzzParam = doomDevice.parametersById.get('doomFuzz/DoomFuzzDSP/Fuzz/Buzz');
+    startParam = device.parametersById.get('start');
+    mixParam = device.parametersById.get('doomFuzz/Mix');
+    buzzParam = device.parametersById.get('doomFuzz/DoomFuzzDSP/Fuzz/Buzz');
 
     // (Optional) Load the samples
     if (dependencies.length)
