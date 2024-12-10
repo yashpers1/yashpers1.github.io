@@ -95,6 +95,8 @@ async function setup() {
     // (Optional) Connect MIDI inputs
     makeMIDIKeyboard(device);
 
+    readOrient();
+
     document.body.onclick = () => {
         context.resume();
     }
